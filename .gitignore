@@ -1,0 +1,17 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Build output (Cloudflare Pages builds this)
+dist/
+
+# Raw media archive — stays local, not on GitHub
+Media/Archive/
+
+# OS
+.DS_Store
+Thumbs.db
