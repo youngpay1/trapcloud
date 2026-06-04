@@ -26,9 +26,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="container max-w-md">
-        <div className="flex flex-col items-center gap-12">
+    <div className="min-h-screen pt-24 md:pt-28 pb-12">
+      <div className="container max-w-4xl">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-12 text-center">
+          Contact
+        </p>
+        <div className="flex flex-col items-center gap-12 max-w-md mx-auto">
           {sent ? (
             <p className="text-sm text-foreground/80 uppercase tracking-[0.2em]">Message sent.</p>
           ) : (
