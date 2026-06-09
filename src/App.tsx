@@ -12,16 +12,15 @@ import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Imprint from './pages/Imprint';
 
-declare const gtag: (...args: unknown[]) => void;
+declare global { interface Window { dataLayer: unknown[] } }
 
 const queryClient = new QueryClient();
 
 const RouteTracker = () => {
   const location = useLocation();
   useEffect(() => {
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'page_view', { page_path: location.pathname });
-    }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'page_view', page_path: location.pathname });
   }, [location.pathname]);
   return null;
 };
