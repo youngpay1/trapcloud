@@ -1,8 +1,32 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { upcomingShows, pastShows } from '@/data/shows';
 
 const Index = () => {
+  const [email, setEmail] = useState('');
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubscribing(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json() as { ok: boolean };
+      setSubscribeStatus(data.ok ? 'success' : 'error');
+      if (data.ok) setEmail('');
+    } catch {
+      setSubscribeStatus('error');
+    } finally {
+      setSubscribing(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
 
@@ -138,6 +162,37 @@ const Index = () => {
                 </Link>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-16 md:py-24">
+        <div className="container max-w-4xl">
+          <div className="flex flex-col items-center gap-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground text-center">
+              Stay in the loop
+            </p>
+            {subscribeStatus === 'success' ? (
+              <p className="text-sm text-foreground/80">Successfully subscribed!</p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex items-center gap-4">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="text-sm bg-transparent border-b border-border/50 focus:border-foreground/50 outline-none py-2 px-0 w-48 md:w-64 transition-colors placeholder:text-muted-foreground/50"
+                />
+                <button type="submit" disabled={subscribing} className="nav-link text-xs uppercase tracking-widest disabled:opacity-50">
+                  {subscribing ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </form>
+            )}
+            {subscribeStatus === 'error' && (
+              <p className="text-sm text-destructive">Something went wrong. Please try again.</p>
+            )}
           </div>
         </div>
       </section>
