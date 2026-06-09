@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import Layout from '@/components/layout/Layout';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -11,13 +12,26 @@ import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Imprint from './pages/Imprint';
 
+declare const gtag: (...args: unknown[]) => void;
+
 const queryClient = new QueryClient();
+
+const RouteTracker = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_view', { page_path: location.pathname });
+    }
+  }, [location.pathname]);
+  return null;
+};
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
+          <RouteTracker />
           <ScrollToTop />
           <Layout>
             <PageTransition>

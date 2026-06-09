@@ -1,4 +1,6 @@
 import { useState } from 'react';
+
+declare const gtag: (...args: unknown[]) => void;
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { upcomingShows, pastShows } from '@/data/shows';
@@ -19,7 +21,10 @@ const Index = () => {
       });
       const data = await res.json() as { ok: boolean };
       setSubscribeStatus(data.ok ? 'success' : 'error');
-      if (data.ok) setEmail('');
+      if (data.ok) {
+        setEmail('');
+        if (typeof gtag !== 'undefined') gtag('event', 'newsletter_signup', { site: 'trapcloud' });
+      }
     } catch {
       setSubscribeStatus('error');
     } finally {
@@ -75,6 +80,7 @@ const Index = () => {
                   to={show.ticketUrl || '/shows'}
                   target={show.ticketUrl ? '_blank' : undefined}
                   className="group block"
+                  onClick={() => { if (typeof gtag !== 'undefined') gtag('event', 'ticket_click', { artist: show.artist, city: show.city }); }}
                 >
                   <div className="flex items-baseline justify-between gap-2 md:gap-4 py-4 border-b border-border/20 transition-colors">
                     <div className="flex items-baseline gap-3 md:gap-12 flex-1 min-w-0">
