@@ -12,15 +12,14 @@ import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Imprint from './pages/Imprint';
 
-declare global { interface Window { dataLayer: unknown[] } }
+declare global { interface Window { zaraz?: { track: (event: string, data?: Record<string, unknown>) => void } } }
 
 const queryClient = new QueryClient();
 
 const RouteTracker = () => {
   const location = useLocation();
   useEffect(() => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'page_view', page_path: location.pathname });
+    window.zaraz?.track('pageview', { page_path: location.pathname });
   }, [location.pathname]);
   return null;
 };

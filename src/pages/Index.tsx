@@ -21,7 +21,7 @@ const Index = () => {
       setSubscribeStatus(data.ok ? 'success' : 'error');
       if (data.ok) {
         setEmail('');
-        (window as any).dataLayer?.push({ event: 'newsletter_signup', site: 'trapcloud' });
+        window.zaraz?.track('newsletter_signup', { site: 'trapcloud' });
       }
     } catch {
       setSubscribeStatus('error');
@@ -78,7 +78,7 @@ const Index = () => {
                   to={show.ticketUrl || '/shows'}
                   target={show.ticketUrl ? '_blank' : undefined}
                   className="group block"
-                  onClick={() => { (window as any).dataLayer?.push({ event: 'ticket_click', artist: show.artist, city: show.city }); }}
+                  onClick={() => { window.zaraz?.track('ticket_click', { artist: show.artist, city: show.city }); }}
                 >
                   <div className="flex items-baseline justify-between gap-2 md:gap-4 py-4 border-b border-border/20 transition-colors">
                     <div className="flex items-baseline gap-3 md:gap-12 flex-1 min-w-0">
