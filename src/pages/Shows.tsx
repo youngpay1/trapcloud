@@ -15,8 +15,7 @@ const Shows = () => {
             {upcomingShows.map((show) => (
               <Link
                 key={show.id}
-                to={show.ticketUrl || '#'}
-                target={show.ticketUrl ? '_blank' : undefined}
+                to={`/shows/${show.id}`}
                 className="group block"
               >
                 <div className="flex items-baseline justify-between gap-2 md:gap-4 py-5 border-b border-border/20 transition-colors">

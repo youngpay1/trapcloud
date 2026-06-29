@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import PageTransition from '@/components/PageTransition';
 import Index from './pages/Index';
 import Shows from './pages/Shows';
+import ShowDetail from './pages/ShowDetail';
 import Archive from './pages/Archive';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
@@ -36,6 +37,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/shows" element={<Shows />} />
+              <Route path="/shows/:id" element={<ShowDetail />} />
               <Route path="/archive" element={<Archive />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/imprint" element={<Imprint />} />

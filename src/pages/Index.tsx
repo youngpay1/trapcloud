@@ -75,10 +75,8 @@ const Index = () => {
               {upcomingShows.slice(0, 4).map((show) => (
                 <Link
                   key={show.id}
-                  to={show.ticketUrl || '/shows'}
-                  target={show.ticketUrl ? '_blank' : undefined}
+                  to={`/shows/${show.id}`}
                   className="group block"
-                  onClick={() => { window.zaraz?.track('ticket_click', { artist: show.artist, city: show.city }); }}
                 >
                   <div className="flex items-baseline justify-between gap-2 md:gap-4 py-4 border-b border-border/20 transition-colors">
                     <div className="flex items-baseline gap-3 md:gap-12 flex-1 min-w-0">
