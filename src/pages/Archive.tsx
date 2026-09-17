@@ -3,6 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronDown } from 'lucide-react';
 import { pastShows, type PastShow } from '@/data/shows';
 
+// public/shows/ keeps the original JPEGs (up to 17 MB each) plus two generated WebP
+// variants per image: `<name>-thumb.webp` (<=400px) for the strip and `<name>-web.webp`
+// (<=1600px) for the viewer. Only the originals are listed in shows.ts.
+const imageVariant = (src: string, kind: 'thumb' | 'web') =>
+  src.replace(/\.(jpe?g|png)$/i, `-${kind}.webp`);
+
 const Archive = () => {
   const [expandedShow, setExpandedShow] = useState<string | null>(null);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
@@ -101,7 +107,7 @@ const Archive = () => {
                             ) : (
                               <img
                                 key={activeMedia[show.id].src}
-                                src={activeMedia[show.id].src}
+                                src={imageVariant(activeMedia[show.id].src, 'web')}
                                 alt={show.name}
                                 className="w-full aspect-video object-cover cursor-pointer"
                                 onClick={() => setFullscreenImage(activeMedia[show.id].src)}
@@ -151,7 +157,8 @@ const Archive = () => {
                                   onClick={() => setActiveMediaItem(show.id, image, 'image')}
                                 >
                                   <img
-                                    src={image}
+                                    src={imageVariant(image, 'thumb')}
+                                    loading="lazy"
                                     alt={`${show.name} - ${index + 1}`}
                                     className="w-full h-full object-cover"
                                   />
@@ -198,7 +205,7 @@ const Archive = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              src={fullscreenImage}
+              src={imageVariant(fullscreenImage, 'web')}
               alt="Fullscreen"
               className="max-w-full max-h-full object-contain"
               onClick={(e) => e.stopPropagation()}
