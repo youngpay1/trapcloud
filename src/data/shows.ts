@@ -36,7 +36,10 @@ export const pastShows: PastShow[] = [
     year: '2026',
     city: 'Frankfurt',
     venue: 'ZOOM',
-    videos: ['/shows/ski-mask/promo.mp4'],
+    videos: [
+      '/shows/ski-mask/live-1.mp4',
+      '/shows/ski-mask/promo.mp4',
+    ],
     images: [
       '/shows/ski-mask/poster.jpg',
       '/shows/ski-mask/artist.jpg',
