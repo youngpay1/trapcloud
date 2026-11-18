@@ -1,10 +1,14 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, MapPin, Clock, Calendar } from 'lucide-react';
-import { upcomingShows } from '@/data/shows';
+import { upcomingShows, pastShows } from '@/data/shows';
 
 const ShowDetail = () => {
   const { id } = useParams<{ id: string }>();
   const show = upcomingShows.find((s) => s.id === id);
+
+  if (!show && pastShows.some((s) => s.id === id)) {
+    return <Navigate to="/archive" replace />;
+  }
 
   if (!show) {
     return (

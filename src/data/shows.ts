@@ -27,27 +27,21 @@ export interface PastShow {
   videos?: string[];
 }
 
-export const upcomingShows: Show[] = [
-  {
-    id: 'ski-mask-frankfurt-2026',
-    date: '2026-07-06',
-    artist: 'Ski Mask the Slump God',
-    city: 'Frankfurt',
-    country: 'Germany',
-    venue: 'ZOOM',
-    address: 'Carl-Benz-Straße 21, 60386 Frankfurt',
-    doors: '19:00',
-    showStart: '20:00',
-    ticketUrl: 'https://www.eventim.de/noapp/event/ski-mask-the-slump-god-europe-tour-2026-zoom-21722228/',
-    status: 'upcoming',
-    poster: '/shows/ski-mask/poster.jpg',
-    promo: '/shows/ski-mask/promo.mp4',
-    description:
-      "We're bringing Ski Mask the Slump God to Frankfurt for one night only — one of the most electric live performers in hip-hop, on a German stage, up close. If you've been waiting for him to pull up, this is it.",
-  },
-];
+export const upcomingShows: Show[] = [];
 
 export const pastShows: PastShow[] = [
+  {
+    id: 'ski-mask-frankfurt-2026',
+    name: 'Ski Mask the Slump God — Frankfurt',
+    year: '2026',
+    city: 'Frankfurt',
+    venue: 'ZOOM',
+    videos: ['/shows/ski-mask/promo.mp4'],
+    images: [
+      '/shows/ski-mask/poster.jpg',
+      '/shows/ski-mask/artist.jpg',
+    ],
+  },
   {
     id: 'travis-scott-frankfurt',
     name: 'Travis Scott — Frankfurt',
