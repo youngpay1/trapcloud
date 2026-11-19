@@ -42,7 +42,7 @@ const Navbar = () => {
         {/* Desktop: Logo (left) */}
         <Link to="/" className="hidden md:flex items-center">
           <img
-            src="/trapcloud-logo-small.png"
+            src="/trapcloud-logo-nav.png"
             alt="Trap Cloud"
             className="h-16 w-auto"
             onError={(e) => {
@@ -63,7 +63,7 @@ const Navbar = () => {
         {/* Mobile: Logo (center) */}
         <Link to="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center">
           <img
-            src="/trapcloud-logo-small.png"
+            src="/trapcloud-logo-nav.png"
             alt="Trap Cloud"
             className="h-[52px] w-auto"
             onError={(e) => {
